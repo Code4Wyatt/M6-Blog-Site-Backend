@@ -7,10 +7,9 @@ const blogSchema = new Schema({
     category: { type: String, required: true },
     content: { type: String, required: true },
     author: {
-        "author.name": { type: String, required: true },
-        "author.avatar": { type: String, required: true }
+        name: { type: String, required: true },
+        avatar: { type: String, required: true }
     },
-    "author.avatar": { type: String, required: true },
     readTime: {
         type: Object,
         required: true,
