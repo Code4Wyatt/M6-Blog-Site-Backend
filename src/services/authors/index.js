@@ -1,10 +1,12 @@
 import express from "express"
 
+import authorsSchema from "./schema.js"
+
 const authorsRouter = express.Router()
 
-authorsRouter.get("/", async (req, res, next) => {
+authorsRouter.post("/", async (req, res, next) => {
     try {
-        
+        const newAuthor = new AuthorModel(req.body)
     } catch (error){
       next(error)
     }

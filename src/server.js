@@ -2,6 +2,7 @@ import express from "express";
 import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 import cors from "cors";
+import authorsRouter from "./services/authors";
 
 const server = express();
 
@@ -13,6 +14,8 @@ server.use(cors());
 server.use(express.json());
 
 // Routes
+
+server.use("/authors", authorsRouter);
 
 // Error Handlers
 
