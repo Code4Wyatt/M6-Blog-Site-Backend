@@ -7,6 +7,15 @@ const server = express();
 
 const port = process.env.PORT;
 
+// Middlewares 
+
+server.use(cors());
+server.use(express.json());
+
+// Routes
+
+// Error Handlers
+
 mongoose.connect(process.env.MONGO_CONNECTION);
 
 mongoose.connection.on("connected", () => {
