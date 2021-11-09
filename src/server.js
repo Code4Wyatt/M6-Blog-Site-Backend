@@ -2,7 +2,7 @@ import express from "express";
 import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 import cors from "cors";
-import authorsRouter from "./services/authors";
+import authorsRouter from "./services/authors/index.js";
 
 const server = express();
 
@@ -27,7 +27,7 @@ mongoose.connection.on("connected", () => {
     server.listen(port, () => {
         console.table(listEndpoints(server));
 
-        console.log("Server running on port: ${port} ");
+        console.log(`Server running on port: ${port}`);
     })
 })
 

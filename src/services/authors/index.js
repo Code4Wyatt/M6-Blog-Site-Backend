@@ -1,12 +1,15 @@
-import express from "express"
+import express from "express";
+import createHttpError from "http-errors";
 
-import authorsSchema from "./schema.js"
+import AuthorsModel from "./schema.js";
 
-const authorsRouter = express.Router()
+const authorsRouter = express.Router();
 
 authorsRouter.post("/", async (req, res, next) => {
     try {
         const newAuthor = new AuthorModel(req.body)
+        const { _id } = await newAuthor.save()
+        res.status(201).send({_id});
     } catch (error){
       next(error)
     }
