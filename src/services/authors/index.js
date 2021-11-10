@@ -1,70 +1,30 @@
 import express from "express"
-import createHttpError from "http-errors"
-import AuthorModel from "./schema.js"
+import { authorPostValidation } from '../../validation.js';
+import multer from 'multer'; // for uploading files
+import { getAuthorsCSV, getAuthors, getAuthorById, updateAuthorAvatar, newAuthor, editAuthor, deleteAuthor, getAuthorBlogPosts } from '../../db/controllers/authors.controller.js';
+import { uploadAvatarImageToCloud } from '../../lib/image-tools.js';
 
 const authorsRouter = express.Router()
 
-authorsRouter.post("/", async (req, res, next) => {
-    try {
-        const newAuthor = new AuthorModel(req.body)
-        const { _id } = await newAuthor.save()
-        res.status(201).send({_id})
-    } catch (error){
-      next(error)
-    }
-})
+// Get all authors and post new Author routes
 
-authorsRouter.get("/", async (req, res, next) => {
-    try {
-        const authors = await AuthorModel.find()
-        res.send(authors)
-    } catch (error){
-      next(error)
-    }
-})
+authorsRouter.route("/").get(getAuthors).post(authorPostValidation, newAuthor);
 
-authorsRouter.get("/:id", async (req, res, next) => {
-    try {
-        const id = req.params.id
+// Get authors CSV
 
-        const author = await AuthorsModel.findById(id)
-        if (author) {
-            res.send(author)
-        } else {
-            next(createHttpError(404, `User with ${id} not found`))
-        }
-    } catch (error){
-      next(error)
-    }
-})
+authorsRouter.route("/authorsCSV").get(getAuthorsCSV);
 
-authorsRouter.put("/:id", async (req, res, next) => {
-    try {
-        const id = req.params.id
-        const updatedAuthor = await AuthorsModel.findByIdAndUpdate(id, req.body, { new: true })
+// Get, Put and Delete a specific author routes
 
-        if (updatedAuthor) {
-            res.send(updatedAuthor)
-        } else (
-            next(createHttpError(404, `User with ${id} not found`))
-        )
-    } catch (error){
-      next(error)
-    }
-})
+authorsRouter.route("/:id").get(getAuthorById).put(editAuthor).delete(deleteAuthor);
 
-authorsRouter.delete("/:id", async (req, res, next) => {
-    try {
-        const id = req.params.id
-        const deletedAuthor = await AuthorsModel.findByIdAndDelete(id)
-        if (deletedAuthor) {
-            res.status(404).send()
-        } else {
-            next(createHttpError(404, `User with id ${id} not found`))
-        }
-    } catch (error){
-      next(error)
-    }
-})
+// Get blog posts from a specific author routes
+
+authorsRouter.get("/:id/blogPosts", getAuthorBlogPosts);
+
+// Upload author avar image
+
+authorsRouter.post("/:id/uploadAvatar", uploadAvatarImageToCloud, updateAuthorAvatar);
+
 
 export default authorsRouter;
