@@ -16,6 +16,7 @@ server.use(express.json());
 // Routes
 
 server.use("/authors", authorsRouter);
+// server.use("/blogs", blogsRouter)
 
 // Error Handlers
 
