@@ -1,14 +1,14 @@
 import express from "express";
-import { authorPostValidation } from '../../validation.js';
+import { authorValidation } from "../../validation.js";
 import multer from 'multer'; // for uploading files
-import { getAuthorsCSV, getAuthors, getAuthorById, updateAuthorAvatar, newAuthor, editAuthor, deleteAuthor, getAuthorBlogPosts } from '../../db/controllers/authors.controller.js';
+import { getAuthorsCSV, getAuthors, getAuthorById, updateAuthorAvatar, newAuthor, editAuthor, deleteAuthor, getAuthorBlogPosts } from "../../database/controllers/authorsController.js";
 import { uploadAvatarImageToCloud } from '../../lib/image-tools.js';
 
 const authorsRouter = express.Router();
 
 // Get all authors and post new Author routes
 
-authorsRouter.route("/").get(getAuthors).post(authorPostValidation, newAuthor);
+authorsRouter.route("/").get(getAuthors).post(authorValidation, newAuthor);
 
 // Get authors CSV
 

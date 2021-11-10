@@ -4,7 +4,7 @@ import pipeline from "stream";
 import json2csv from "json2csv";
 import AuthorModel from "../models/authorsModel.js";
 import { Readable } from "stream";
-import { Buffer } from "stream";
+import { Buffer } from "buffer";
 
 export async function getAuthors(req,res,next) {
     try {
@@ -23,13 +23,10 @@ export async function getAuthors(req,res,next) {
 
 export async function getAuthorsCSV(req,res,next) {
   try {
-   
     res.setHeader("Content-Disposition", "attachment; filename=authors.csv");
     
     const transform = new json2csv.Transform({fields: ["name", "surname", "email"]});
     const destination = res;
-
-  
 
     AuthorModel.find().cursor().on("data", function(doc) {
       let buffer = Buffer.from(JSON.stringify(doc));

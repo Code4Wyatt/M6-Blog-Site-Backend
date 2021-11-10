@@ -5,7 +5,7 @@ import getPDFReadableStream from "../../lib/pdf-tools.js";
 import axios from "axios";
 import striptags from "striptags";
 import sendAuthorEmail from "../../lib/email-tools.js";
-import BlogModel from "../models/blogPosts.model.js";
+import BlogModel from "../models/blogsModel.js";
 import query2mongo from "query-to-mongo";
 
 export async function getAllPosts(req,res,next) {

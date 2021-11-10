@@ -1,13 +1,13 @@
 import express from "express";
-import { blogPostValidation, commentValidation } from "../../validation.js";
-import { getAllPosts, getPostById, getComments, getComment, updateComment, addComment, deleteComment, updateBlogPost, updateBlogCover, deleteBlogPost, postBlogPost, downloadPDF } from "../../db/controllers/blogPosts.controller.js";
+import { blogValidation, commentValidation } from "../../validation.js";
+import { getAllPosts, getPostById, getComments, getComment, updateComment, addComment, deleteComment, updateBlogPost, updateBlogCover, deleteBlogPost, postBlogPost, downloadPDF } from "../../database/controllers/blogsController.js";
 import { uploadBlogImageToCloud } from "../../lib/image-tools.js";
 
 const blogPostRouter = express.Router();
 
 // Get Blog Posts
 
-blogPostRouter.route("/").get(getAllPosts).post(blogPostValidation, postBlogPost);
+blogPostRouter.route("/").get(getAllPosts).post(blogValidation, postBlogPost);
 
 // Get, Put and Delete Specific Blog
 
@@ -23,4 +23,4 @@ blogPostRouter.route("/:id/comments/:commentId").get(getComment).put(updateComme
 
 blogPostRouter.route("/:id/uploadCover").post(uploadBlogImageToCloud, updateBlogCover); // posting the image to the cloud initially, then grabbing and updating it in the database with updateBlogCover controller
 
-export default blogPostsRouter;
+export default blogPostRouter;
