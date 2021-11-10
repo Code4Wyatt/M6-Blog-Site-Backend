@@ -3,6 +3,7 @@ import listEndpoints from "express-list-endpoints";
 import mongoose from "mongoose";
 import cors from "cors";
 import authorsRouter from "./services/authors/index.js";
+import blogsRouter from "./services/blogs/index.js";
 
 const server = express();
 
@@ -10,13 +11,13 @@ const port = process.env.PORT;
 
 // Middlewares 
 
-server.use(cors());
+server.use(cors(corsOptions));
 server.use(express.json());
 
 // Routes
 
 server.use("/authors", authorsRouter);
-// server.use("/blogs", blogsRouter)
+server.use("/blogs", blogsRouter);
 
 // Error Handlers
 
@@ -35,3 +36,5 @@ mongoose.connection.on("connected", () => {
 mongoose.connection.on("error", err => {
     console.log(err);
 })
+
+export default server;

@@ -7,3 +7,7 @@ export const authorValidation = [
     body("dateOfBirth").exists().isEmail().withMessage("Date of birth is required"),
     body("avatar").exists().isURL().withMessage("Please include an avatar")
 ];
+
+export const blogValidation = [
+    
+]
