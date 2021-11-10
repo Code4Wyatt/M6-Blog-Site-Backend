@@ -1,10 +1,10 @@
-import express from "express"
+import express from "express";
 import { authorPostValidation } from '../../validation.js';
 import multer from 'multer'; // for uploading files
 import { getAuthorsCSV, getAuthors, getAuthorById, updateAuthorAvatar, newAuthor, editAuthor, deleteAuthor, getAuthorBlogPosts } from '../../db/controllers/authors.controller.js';
 import { uploadAvatarImageToCloud } from '../../lib/image-tools.js';
 
-const authorsRouter = express.Router()
+const authorsRouter = express.Router();
 
 // Get all authors and post new Author routes
 
