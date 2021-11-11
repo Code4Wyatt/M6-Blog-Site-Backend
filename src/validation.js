@@ -12,7 +12,7 @@ export const blogValidation = [
     body("category").exists().isString().withMessage("Category is required"),
     body("title").exists().isString().withMessage("Title is required"),
     body("cover").exists().isURL().withMessage("Cover is required"),
-    body("email").exists().isEmail().withMessage("Email is required"),
+    body("email").optional().isEmail().withMessage("Email is required"),
     body("readTime").exists().withMessage("Read time is required"),
     body("readTime.value").exists().withMessage("Read time value is required"),
     body("readTime.unit").exists().isString().withMessage("Read time unit is required"),

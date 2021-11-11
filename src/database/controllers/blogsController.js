@@ -105,15 +105,21 @@ export async function postBlogPost(req,res,next) {
   try {
     const errorsList = validationResult(req);
     if (!errorsList.isEmpty()) {
+      console.log('Inside IF')
       next(createHttpError(400, { errorsList }));
+      
     } else {
-      res.status(400).send({errorsList})
+      // if there' isn't no error create the blogpost and send back to the front end
+      console.log(`else`)
+      
+      // res.status(200).send(newBlogPost);
+      const newBlogPost = new BlogModel(req.body);
+      const {_id} = await newBlogPost.save();
+      console.log('Line 116')
+      res.status(201).send({_id});
+  
     }
  
-    const newBlogPost = new BlogModel(req.body);
-    const {_id} = await newBlogPost.save();
-    
-    res.status(201).send({_id});
   } catch (error) {
     console.log(error);
     next(error);
